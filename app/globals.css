@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Export mode: hide UI elements */
+body.export-mode .no-export {
+  display: none !important;
+}
+
+body.export-mode #carousel-viewport {
+  overflow: visible !important;
+}
+
+body.export-mode .snap-center {
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+}
