@@ -107,61 +107,61 @@ Also provide:
 
 ---
 
-## Slide Type Quick Reference
+## Detailed Slide Options (10 Options per Category)
+You can request these specific slide types to add variety to your carousel:
 
-| Slide Type       | Best For              | Key Elements                |
-| ---------------- | --------------------- | --------------------------- |
-| **Cover**        | First impression      | Title, Subtitle, Tagline    |
-| **Intro**        | Setting context       | Heading, Text, Big Stat     |
-| **Infographic**  | Key concepts          | 3 numbered points           |
-| **Chart**        | Data visualization    | 4 data points with %        |
-| **Big Number**   | Single powerful stat  | Number, Description, Source |
-| **List**         | Actionable items      | 4-5 bullet points           |
-| **Process Flow** | Step-by-step          | 4 sequential steps          |
-| **Timeline**     | Historical context    | 3-4 events with years       |
-| **Comparison**   | Before/After          | 3 items per side            |
-| **Quote**        | Authority/credibility | Quote + Attribution         |
-| **Highlight**    | Key message           | Single powerful statement   |
-| **Summary**      | Recap                 | 3 takeaways                 |
-| **CTA**          | Engagement            | Question + Action           |
+### 1-10. DATA & VISUALS
+1. **Infographic (Classic)**: 3 numbered points with titles/descriptions
+2. **Infographic (Cards)**: 3 distinct cards with icons and text
+3. **Chart (Bar)**: 4 data bars with percentages
+4. **Chart (Radial)**: Circular progress indicator
+5. **Chart (Donut)**: Ring chart for market share
+6. **Big Number (Classic)**: One massive statistic in focus
+7. **Big Number (Framed)**: Statistic inside a bold frame
+8. **Stats Grid**: 4 key metrics in a 2x2 grid
+9. **Timeline (Vertical)**: Chronological list of events
+10. **Comparison (Split)**: Before vs After side-by-side
 
----
+### 11-20. EXPLANATION & CONTENT
+11. **List (Classic)**: Standard bulleted list
+12. **List (numbered)**: Ordered steps 1-5
+13. **List (Checklist)**: Items with checkmarks
+14. **Process Flow**: 4-step sequential arrow flow
+15. **Concept Map**: Central idea with 4 branches
+16. **Framework**: 3-step triangular or circular model
+17. **Definition**: Word, pronunciation, and meaning
+18. **Myth vs Fact**: Common side-by-side correction
+19. **Problem/Solution**: Clear pain point followed by fix
+20. **Code Snippet**: Mock code block for technical concepts
 
-## Advanced: Custom Prompt Example
+### 21-30. IMPACT & ENGAGEMENT
+21. **Quote (Classic)**: Large italic text with attribution
+22. **Quote (Modern)**: Bold text on solid color background
+23. **Quote (Minimal)**: Clean text with small profile photo
+24. **Highlight (Centered)**: Short powerful statement in middle
+25. **Highlight (Heavy)**: Massive text overlay on dark background
+26. **Highlight (Framed)**: Text inside a decorative border
+27. **Testimonial (Classic)**: Customer review with stars
+28. **Testimonial (Cards)**: Floating card style review
+29. **Reminder**: "Don't forget..." style sticky note
+30. **Alert**: "Warning/Attention" style notification
 
-Here's a filled example:
-
-```
-Create a LinkedIn carousel about: The rise of AI coding assistants in 2025
-
-Please structure the content for a 10-slide carousel with the following requirements:
-
-[rest of template...]
-
-ADDITIONAL CONTEXT:
-- Target audience: Software developers and engineering managers
-- Tone: Professional but forward-thinking
-- Include real statistics from recent tech reports
-- Focus on productivity gains and adoption rates
-- Emphasize practical implications, not hype
-```
-
----
-
-## Troubleshooting
-
-**Problem**: AI generates markdown formatting
-
-- **Solution**: Emphasize "NO markdown" in your prompt, or manually remove \*_ and _ characters
-
-**Problem**: Content too long for slides
-
-- **Solution**: Ask AI to "keep each text block under 2 sentences"
-
-**Problem**: Numbers not formatted well
-
-- **Solution**: Specify "use short formats like 4.4T, 84%, 10x"
+### 31-40. COVER & INTRO VARIATIONS
+31. **Cover (Centered)**: Symmetrical, balanced headline
+32. **Cover (Split)**: Image on left, text on right
+33. **Cover (Minimal)**: Clean, photo-centric layout
+34. **Cover (Bold)**: High contrast, large typography
+35. **Intro (Classic)**: Heading + Text + Stat
+36. **Intro (Minimal)**: Clean text with subtle sidebar stat
+37. **Intro (Card)**: Content inside a floating container
+38. **Intro (Photo)**: Full background image with overlay text
+39. **Intro (Question)**: "Did you know?" style hook
+40. **Intro (Story)**: Narrative opening paragraph
 
 ---
 
-**Note**: This template is designed to work with YOUR carousel generator. The AI will automatically handle color palettes, templates, and visual design when you paste the content and click "Generate with AI".
+## Updated Prompt Structure
+When asking for a carousel, you can specify:
+"Use **Option 4 (Chart Radial)** for slide 3 and **Option 32 (Cover Split)** for slide 1."
+
+This ensures your carousel looks diverse and professionally designed every time.
