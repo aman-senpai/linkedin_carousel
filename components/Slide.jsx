@@ -39,7 +39,7 @@ const Slide = ({ children, id, className = "", onDelete, onRemoveImage, onCycleL
     <div className="snap-center shrink-0 w-[85vw] md:w-[480px]">
       <div
         ref={containerRef}
-        className={`${isExportMode ? '' : 'rounded-[32px] overflow-hidden shadow-2xl group'} relative bg-white`}
+        className={`${isExportMode ? '' : 'rounded-[32px] overflow-hidden shadow-2xl group'} relative bg-white dark:bg-slate-900 transition-colors`}
         style={isExportMode ? {
           width: '1200px',
           height: '1500px'
@@ -50,7 +50,7 @@ const Slide = ({ children, id, className = "", onDelete, onRemoveImage, onCycleL
       >
         <div
           id={id}
-          className={`absolute top-0 left-0 w-[1200px] h-[1500px] flex flex-col text-slate-900 origin-top-left ${className}`}
+          className={`absolute top-0 left-0 w-[1200px] h-[1500px] flex flex-col text-slate-900 origin-top-left bg-white ${className}`}
           style={isExportMode ? {} : {
             transform: `scale(${scale})`,
           }}
