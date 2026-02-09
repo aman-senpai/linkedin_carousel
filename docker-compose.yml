@@ -1,0 +1,29 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+    - arm
+  main: web
+  description:
+    en_us: LinkedIn Carousel Generator
+  tagline:
+    en_us: Generate LinkedIn Carousels efficiently.
+  developer: Senpai
+  author: Senpai
+  icon: https://cdn-icons-png.flaticon.com/512/174/174857.png
+  thumbnail: https://cdn-icons-png.flaticon.com/512/174/174857.png
+  title:
+    en_us: LinkedIn Carousel
+  category: Productivity
+  port_map: "3000"
