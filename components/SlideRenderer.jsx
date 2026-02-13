@@ -1,57 +1,91 @@
-import React from 'react';
-import CoverSlide from './CoverSlide';
-import IntroSlide from './IntroSlide';
-import HighlightSlide from './HighlightSlide';
-import InfographicSlide from './InfographicSlide';
-import ListSlide from './ListSlide';
-import ChartSlide from './ChartSlide';
-import BigNumberSlide from './BigNumberSlide';
-import ComparisonSlide from './ComparisonSlide';
-import QuoteSlide from './QuoteSlide';
-import TestimonialSlide from './TestimonialSlide';
-import SummarySlide from './SummarySlide';
-import CTASlide from './CTASlide';
-import StatsGridSlide from './StatsGridSlide';
-import ProcessFlowSlide from './ProcessFlowSlide';
-import TimelineSlide from './TimelineSlide';
-import ChartRadialSlide from './ChartRadialSlide';
+import React from "react";
+import dynamic from "next/dynamic";
+import { Loader2 } from "lucide-react";
+import CoverSlide from "./CoverSlide";
+import IntroSlide from "./IntroSlide";
+import HighlightSlide from "./HighlightSlide";
+import InfographicSlide from "./InfographicSlide";
+import ListSlide from "./ListSlide";
+import BigNumberSlide from "./BigNumberSlide";
 
-const SlideRenderer = ({ slide, index, colors, palette, userProfileImage, userImages, headingClass, headingWeight, postTitle, postCaption, socialHandle }) => {
-    const props = { slide, index, colors, palette, userProfileImage, userImages, headingClass, headingWeight, postTitle, postCaption, socialHandle };
+const ChartSlide = dynamic(() => import("./ChartSlide"), {
+    loading: () => (
+        <div className="w-full h-full flex items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin text-slate-300" />
+        </div>
+    ),
+    ssr: false,
+});
+import ComparisonSlide from "./ComparisonSlide";
+import QuoteSlide from "./QuoteSlide";
+import TestimonialSlide from "./TestimonialSlide";
+import SummarySlide from "./SummarySlide";
+import CTASlide from "./CTASlide";
+import StatsGridSlide from "./StatsGridSlide";
+import ProcessFlowSlide from "./ProcessFlowSlide";
+import TimelineSlide from "./TimelineSlide";
+import ChartRadialSlide from "./ChartRadialSlide";
+
+const SlideRenderer = ({
+    slide,
+    index,
+    colors,
+    palette,
+    userProfileImage,
+    userImages,
+    headingClass,
+    headingWeight,
+    postTitle,
+    postCaption,
+    socialHandle,
+}) => {
+    const props = {
+        slide,
+        index,
+        colors,
+        palette,
+        userProfileImage,
+        userImages,
+        headingClass,
+        headingWeight,
+        postTitle,
+        postCaption,
+        socialHandle,
+    };
 
     switch (slide.type) {
-        case 'cover':
+        case "cover":
             return <CoverSlide {...props} />;
-        case 'intro':
+        case "intro":
             return <IntroSlide {...props} />;
-        case 'highlight':
+        case "highlight":
             return <HighlightSlide {...props} />;
-        case 'infographic':
+        case "infographic":
             return <InfographicSlide {...props} />;
-        case 'list':
-        case 'list-icons':
+        case "list":
+        case "list-icons":
             return <ListSlide {...props} />;
-        case 'process-flow':
+        case "process-flow":
             return <ProcessFlowSlide {...props} />;
-        case 'timeline':
+        case "timeline":
             return <TimelineSlide {...props} />;
-        case 'stats-grid':
+        case "stats-grid":
             return <StatsGridSlide {...props} />;
-        case 'chart':
+        case "chart":
             return <ChartSlide {...props} />;
-        case 'chart-radial':
+        case "chart-radial":
             return <ChartRadialSlide {...props} />;
-        case 'big-number':
+        case "big-number":
             return <BigNumberSlide {...props} />;
-        case 'comparison':
+        case "comparison":
             return <ComparisonSlide {...props} />;
-        case 'quote':
+        case "quote":
             return <QuoteSlide {...props} />;
-        case 'testimonial':
+        case "testimonial":
             return <TestimonialSlide {...props} />;
-        case 'summary':
+        case "summary":
             return <SummarySlide {...props} />;
-        case 'cta':
+        case "cta":
             return <CTASlide {...props} />;
         default:
             return null;
