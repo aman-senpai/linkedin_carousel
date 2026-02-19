@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Upload, X, User, Image as ImageIcon, Wand2, Type, AtSign, Palette, Palette as PaletteIcon, Layout, ChevronRight } from 'lucide-react';
+import { Upload, X, User, Image as ImageIcon, Wand2, Type, AtSign, Palette, Palette as PaletteIcon, Layout, ChevronRight, Loader2, Globe, Settings } from 'lucide-react';
+import { toast } from 'sonner';
 import { FONT_OPTIONS } from '@/lib/constants';
 import { TEMPLATES } from '@/lib/templates';
+import YoutubeBrowser from './YoutubeBrowser';
+import EditChannelsModal from './modals/EditChannelsModal';
 
 const EditorSidebar = ({
     topic,
@@ -34,8 +37,79 @@ const EditorSidebar = ({
 }) => {
     const [selectedCategory, setSelectedCategory] = useState('All');
 
+    // YouTube Fetcher State
+    const [ytVideos, setYtVideos] = useState([]);
+    const [isFetchingTranscript, setIsFetchingTranscript] = useState(null);
+
+    // Browser/Manage State
+    const [isBrowserOpen, setIsBrowserOpen] = useState(false);
+    const [isManageOpen, setIsManageOpen] = useState(false);
+
+    // Body scroll lock
+    React.useEffect(() => {
+        if (isBrowserOpen || isManageOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isBrowserOpen, isManageOpen]);
+
+
+    const handleSelectVideo = async (video) => {
+        setIsBrowserOpen(false);
+        setIsFetchingTranscript(video.id);
+        try {
+            const response = await fetch(`/api/youtube/transcript?videoId=${video.id}`);
+            const data = await response.json();
+            if (data.transcript) {
+                setTopic(`Video Title: ${video.title}\n\nTranscript: ${data.transcript}`);
+                toast.success('Content loaded into editor!');
+            } else {
+                setTopic(`Video Title: ${video.title}\n\nVideo URL: ${video.link}`);
+                toast.warning('Transcript not available, title and link loaded.');
+            }
+        } catch (error) {
+            setTopic(`Video Title: ${video.title}\n\nVideo URL: ${video.link}`);
+            toast.error('Error fetching transcript');
+        } finally {
+            setIsFetchingTranscript(null);
+        }
+    };
+
     return (
         <div className="w-full lg:w-[400px] order-1 lg:order-2 shrink-0 lg:sticky lg:top-6 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto pr-2 custom-scrollbar space-y-5 no-export">
+            {/* YouTube Content Fetcher */}
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-red-600 dark:text-red-400 shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
+                    </div>
+                    <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">YouTube Integration</label>
+                    <div className="ml-auto flex gap-1">
+                        <button
+                            onClick={() => setIsManageOpen(true)}
+                            className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                            title="Manage Channels"
+                        >
+                            <Settings size={14} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <button
+                        onClick={() => setIsBrowserOpen(true)}
+                        className="w-full flex items-center justify-center gap-2 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-500/20"
+                    >
+                        <Globe size={16} fill="currentColor" />
+                        BROWSE CHANNELS
+                    </button>
+                </div>
+            </div>
+
             {/* Topic Input Card */}
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
                 <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 block">Topic / Content</label>
@@ -277,6 +351,17 @@ const EditorSidebar = ({
                     </div>
                 </div>
             </div>
+
+            <YoutubeBrowser
+                isOpen={isBrowserOpen}
+                onClose={() => setIsBrowserOpen(false)}
+                onSelectVideo={handleSelectVideo}
+            />
+
+            <EditChannelsModal
+                isOpen={isManageOpen}
+                onClose={() => setIsManageOpen(false)}
+            />
         </div>
     );
 };
