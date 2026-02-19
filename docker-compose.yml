@@ -1,8 +1,10 @@
 services:
   web:
     container_name: linkedin-carousel
-    # This tells docker to look for a 'Dockerfile' in the current directory
-    build: .
+    image: aman-senpai/linkedin-carousel:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "3000:3000"
