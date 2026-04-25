@@ -16,7 +16,7 @@ const TestimonialSlide = ({ slide, colors, palette, socialHandle, postTitle }) =
                                 <div className="absolute -top-6 -left-6 w-16 h-16 rounded-3xl flex items-center justify-center text-white text-3xl shadow-lg" style={{ background: colors.primary }}>“</div>
                                 <p className="text-4xl text-slate-600 leading-relaxed mb-10">{stripMarkdown(t?.text || slide.text)}</p>
                                 <div className="flex items-center gap-6 mt-6 pt-6 border-t border-slate-50">
-                                    <img src={t?.image || '/profile.png'} className="w-20 h-20 rounded-full border-4 border-slate-50" alt="avatar" />
+                                    <img crossOrigin="anonymous" src={t?.image || '/profile.png'} className="w-20 h-20 rounded-full border-4 border-slate-50" alt="avatar" />
                                     <div>
                                         <p className="text-3xl font-black text-slate-900">{stripMarkdown(t?.author || slide.author)}</p>
                                         <p className="text-xl font-bold text-slate-400 uppercase tracking-widest">{stripMarkdown(t?.role || slide.role)}</p>
@@ -42,7 +42,7 @@ const TestimonialSlide = ({ slide, colors, palette, socialHandle, postTitle }) =
             return (
                 <div className="h-full w-full flex bg-slate-900 overflow-hidden relative">
                     <div className="w-1/2 h-full relative">
-                        <img src={slide.image || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover" alt="testimonial" />
+                        <img crossOrigin="anonymous" src={slide.image || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover" alt="testimonial" />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-900"></div>
                     </div>
                     <div className="w-1/2 h-full p-20 flex flex-col justify-center relative z-10">
@@ -69,7 +69,7 @@ const TestimonialSlide = ({ slide, colors, palette, socialHandle, postTitle }) =
                     </div>
                     <p className="text-6xl font-bold text-slate-800 leading-tight mb-16 italic">“{stripMarkdown(slide.text)}”</p>
                     <div className="flex items-center justify-center gap-8">
-                        <img src={slide.image || '/profile.png'} className="w-24 h-24 rounded-full border-8 shadow-2xl" style={{ borderColor: colors.primary }} alt="avatar" />
+                        <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-24 h-24 rounded-full border-8 shadow-2xl" style={{ borderColor: colors.primary }} alt="avatar" />
                         <div className="text-left">
                             <p className="text-4xl font-black text-slate-900 uppercase tracking-tight">{stripMarkdown(slide.author)}</p>
                             <p className="text-2xl font-bold text-slate-400">{stripMarkdown(slide.role)}</p>

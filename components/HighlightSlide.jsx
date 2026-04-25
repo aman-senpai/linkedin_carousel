@@ -12,7 +12,7 @@ const HighlightSlide = ({ slide, colors, palette, headingWeight, socialHandle, p
                 <div className="h-full w-full bg-white p-24 flex items-center justify-center relative">
                     <div className="w-full h-full border-[16px] flex items-center justify-center p-20 text-center relative" style={{ borderColor: colors.primary }}>
                         {slide.image && (
-                            <img src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-20" alt="bg" />
+                            <img crossOrigin="anonymous" src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-20" alt="bg" />
                         )}
                         <h2 className="text-8xl font-black text-slate-900 leading-tight uppercase tracking-tight relative z-10">{slide.message}</h2>
                         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full blur-3xl opacity-50" style={{ background: colors.accent }}></div>
@@ -23,7 +23,7 @@ const HighlightSlide = ({ slide, colors, palette, headingWeight, socialHandle, p
             return (
                 <div className="h-full w-full flex items-center justify-center text-center p-12 relative overflow-hidden" style={{ background: colors.dark }}>
                     {slide.image && (
-                        <img src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" alt="bg" />
+                        <img crossOrigin="anonymous" src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" alt="bg" />
                     )}
                     <h2 className="text-[140px] font-black text-white leading-[0.85] tracking-tighter mix-blend-overlay opacity-90">{slide.message}</h2>
                 </div>
@@ -92,7 +92,7 @@ const HighlightSlide = ({ slide, colors, palette, headingWeight, socialHandle, p
                 <div className="absolute inset-0 z-0" style={{ background: colors.primary }}>
                     <div className="absolute inset-0 mix-blend-multiply opacity-50" style={{ background: colors.secondary }}></div>
                     {slide.image ? (
-                        <img src={slide.image} className="w-full h-full object-cover opacity-40 mix-blend-multiply" alt="background" />
+                        <img crossOrigin="anonymous" src={slide.image} className="w-full h-full object-cover opacity-40 mix-blend-multiply" alt="background" />
                     ) : (
                         <div className="absolute inset-0" style={{ background: getGradientCSS(colors), opacity: 0.5 }}></div>
                     )}

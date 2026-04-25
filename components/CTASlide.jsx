@@ -27,7 +27,7 @@ const CTASlide = ({ slide, colors, palette, headingWeight, userProfileImage, use
                 </div>
                 <div className="w-1/2 h-full flex flex-col justify-center items-center text-center p-16 relative" style={{ background: colors.primary }}>
                     <div className="absolute inset-0 bg-white/10 mix-blend-overlay"></div>
-                    <img src={userProfileImage} className="w-48 h-48 rounded-[60px] border-[12px] border-white/30 shadow-2xl mb-12 rotate-3" alt="pfp" />
+                    <img crossOrigin="anonymous" src={userProfileImage} className="w-48 h-48 rounded-[60px] border-[12px] border-white/30 shadow-2xl mb-12 rotate-3" alt="pfp" />
                     <button className="px-12 py-6 bg-white rounded-3xl text-3xl font-black shadow-2xl mb-8" style={{ color: colors.primary }}>
                         {stripMarkdown(slide.button)}
                     </button>
@@ -39,7 +39,7 @@ const CTASlide = ({ slide, colors, palette, headingWeight, userProfileImage, use
         return (
             <div className="h-full w-full bg-slate-100 flex items-center justify-center p-24 relative overflow-hidden">
                 <div className="bg-white rounded-[80px] p-24 shadow-2xl w-full h-full flex flex-col items-center justify-center text-center relative overflow-hidden border-8 border-white">
-                    <img src={userProfileImage} className="w-40 h-40 rounded-full mb-12 border-8 shadow-xl" style={{ borderColor: colors.primary }} alt="pfp" />
+                    <img crossOrigin="anonymous" src={userProfileImage} className="w-40 h-40 rounded-full mb-12 border-8 shadow-xl" style={{ borderColor: colors.primary }} alt="pfp" />
                     <h2 className="text-7xl font-black text-slate-900 mb-8 leading-tight tracking-tight">{stripMarkdown(slide.title)}</h2>
                     <p className="text-4xl text-slate-500 mb-20">{stripMarkdown(slide.subtitle)}</p>
                     <div className="flex flex-col gap-6 w-full max-w-2xl">
@@ -72,11 +72,11 @@ const CTASlide = ({ slide, colors, palette, headingWeight, userProfileImage, use
         return (
             <div className="h-full w-full flex flex-col relative bg-slate-900 overflow-hidden">
                 <div className="h-1/2 w-full relative">
-                    <img src={userImages[0] || 'https://images.unsplash.com/photo-1557683311-eac922347aa1?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover" alt="bg" />
+                    <img crossOrigin="anonymous" src={userImages[0] || 'https://images.unsplash.com/photo-1557683311-eac922347aa1?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover" alt="bg" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
                 </div>
                 <div className="h-1/2 w-full flex flex-col items-center text-center p-20 -mt-20 relative z-10">
-                    <img src={userProfileImage} className="w-48 h-48 rounded-[60px] border-[12px] border-slate-900 shadow-2xl mb-12 rotate-[-3deg]" alt="pfp" />
+                    <img crossOrigin="anonymous" src={userProfileImage} className="w-48 h-48 rounded-[60px] border-[12px] border-slate-900 shadow-2xl mb-12 rotate-[-3deg]" alt="pfp" />
                     <h2 className="text-8xl font-black text-white leading-tight mb-8 drop-shadow-2xl">{stripMarkdown(slide.title)}</h2>
                     <p className="text-4xl text-slate-400 mb-16">{stripMarkdown(slide.subtitle)}</p>
                     <button className="px-16 py-8 rounded-full text-3xl font-black text-white mb-2 shadow-2xl" style={{ background: colors.primary }}>
@@ -127,7 +127,7 @@ const CTASlide = ({ slide, colors, palette, headingWeight, userProfileImage, use
                     </div>
                     <div className="bg-slate-900 p-10 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl shadow-2xl ml-24 text-white relative" style={{ background: colors.primary }}>
                         <p className="text-4xl text-white/70 font-bold mb-4 uppercase tracking-widest">My Solution</p>
-                        <img src={userProfileImage} className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-10 -right-10 shadow-2xl" alt="pfp" />
+                        <img crossOrigin="anonymous" src={userProfileImage} className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-10 -right-10 shadow-2xl" alt="pfp" />
                         <p className="text-4xl font-light leading-relaxed mb-10">{stripMarkdown(slide.subtitle)}</p>
                         <button className="px-10 py-5 bg-white rounded-2xl text-3xl font-black" style={{ color: colors.primary }}>
                             {stripMarkdown(slide.button)}
@@ -171,7 +171,7 @@ const CTASlide = ({ slide, colors, palette, headingWeight, userProfileImage, use
             <TemplateDecorations colors={colors} palette={palette} />
             <div className="absolute inset-0 opacity-20" style={{ background: getGradientCSS(colors) }}></div>
             <div className="relative z-10 w-full flex flex-col items-center justify-center">
-                <img src={userProfileImage} className="w-48 h-48 rounded-full mb-12 border-8 border-white/20 shadow-2xl" alt="pfp" />
+                <img crossOrigin="anonymous" src={userProfileImage} className="w-48 h-48 rounded-full mb-12 border-8 border-white/20 shadow-2xl" alt="pfp" />
                 <h2 className={`text-9xl ${headingWeight} text-white mb-10 leading-none drop-shadow-2xl`}>{stripMarkdown(slide.title)}</h2>
                 <div className="w-32 h-3 bg-white mb-12 shadow-lg" style={{ background: colors.accent }}></div>
                 <p className="text-5xl text-white/80 max-w-4xl mb-24 font-light leading-relaxed">{stripMarkdown(slide.subtitle)}</p>

@@ -2,22 +2,12 @@
 
 import { useRef, useEffect, useState } from 'react';
 
-const Slide = ({ children, id, className = "", onDelete, onRemoveImage, onCycleLayout }) => {
-  const [isExportMode, setIsExportMode] = useState(false);
+const Slide = ({ children, id, className = "", onDelete, onRemoveImage, onCycleLayout, isExporting }) => {
   const containerRef = useRef(null);
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    // Determine export mode on client side only
-    const checkExportMode = () => {
-      const isExport = document.body.classList.contains('export-mode');
-      setIsExportMode(isExport);
-      return isExport;
-    }
-
-    const mode = checkExportMode();
-
-    if (mode || !containerRef.current) return;
+    if (isExporting || !containerRef.current) return;
 
     const updateScale = () => {
       if (containerRef.current) {
@@ -26,14 +16,14 @@ const Slide = ({ children, id, className = "", onDelete, onRemoveImage, onCycleL
       }
     };
 
-    // Initial calculation
     updateScale();
-
     const observer = new ResizeObserver(updateScale);
     observer.observe(containerRef.current);
-
     return () => observer.disconnect();
-  }, []);
+  }, [isExporting]);
+
+  const isExportMode = isExporting;
+
 
   return (
     <div className="snap-center shrink-0 w-[85vw] md:w-[480px]">

@@ -369,44 +369,63 @@ export default function Home() {
         setIsExporting(true);
         document.body.classList.add("export-mode");
 
+        // Wait for DOM to update and images to potentially re-load with crossOrigin if needed
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         try {
-            const { PDFDocument } = await import("pdf-lib");
-            const { toJpeg } = await import("html-to-image");
-            const { saveAs } = await import("file-saver");
+            const pdfLib = await import("pdf-lib");
+            const PDFDocument = pdfLib.PDFDocument || pdfLib.default?.PDFDocument || pdfLib.default;
+            
+            const htmlToImage = await import("html-to-image");
+            const toJpeg = htmlToImage.toJpeg || htmlToImage.default?.toJpeg || htmlToImage.default;
+            
+            const fileSaver = await import("file-saver");
+            const saveAs = fileSaver.saveAs || fileSaver.default || fileSaver;
+            
             const pdfDoc = await PDFDocument.create();
 
             for (let i = 0; i < slides.length; i++) {
                 const element = document.getElementById(`slide-content-${i}`);
                 if (element) {
-                    const dataUrl = await toJpeg(element, {
-                        width: 1200,
-                        height: 1500,
-                        pixelRatio: 1.5,
-                        quality: 1,
-                        backgroundColor: "#ffffff",
-                        skipFonts: true,
-                        fontEmbedCSS: "",
-                    });
-                    const imageBytes = await fetch(dataUrl).then((res) =>
-                        res.arrayBuffer(),
-                    );
-                    const image = await pdfDoc.embedJpg(imageBytes);
-                    const page = pdfDoc.addPage([1200, 1500]);
-                    page.drawImage(image, {
-                        x: 0,
-                        y: 0,
-                        width: 1200,
-                        height: 1500,
-                    });
+                    try {
+                        const dataUrl = await toJpeg(element, {
+                            width: 1200,
+                            height: 1500,
+                            pixelRatio: 2, // Higher quality
+                            quality: 0.95,
+                            backgroundColor: "#ffffff",
+                            skipFonts: true,
+                            useCORS: true,
+                        });
+
+                        if (!dataUrl || dataUrl.length < 100) {
+                            throw new Error(`Slide ${i + 1} capture returned empty image`);
+                        }
+
+                        const imageBytes = await fetch(dataUrl).then((res) =>
+                            res.arrayBuffer(),
+                        );
+                        const image = await pdfDoc.embedJpg(imageBytes);
+                        const page = pdfDoc.addPage([1200, 1500]);
+                        page.drawImage(image, {
+                            x: 0,
+                            y: 0,
+                            width: 1200,
+                            height: 1500,
+                        });
+                    } catch (slideError) {
+                        console.error(`Error exporting slide ${i}:`, slideError);
+                        throw new Error(`Failed to capture slide ${i + 1}. This usually happens due to image CORS issues.`);
+                    }
                 }
             }
 
             const pdfBytes = await pdfDoc.save();
-            saveAs(new Blob([pdfBytes]), "carousel.pdf");
+            saveAs(new Blob([pdfBytes], { type: "application/pdf" }), "carousel.pdf");
             toast.success("PDF Downloaded!");
         } catch (e) {
-            console.error(e);
-            toast.error("Failed to export PDF");
+            console.error("Export Error:", e);
+            toast.error(e.message || "Failed to export PDF");
         } finally {
             setIsExporting(false);
             document.body.classList.remove("export-mode");
@@ -433,6 +452,7 @@ export default function Home() {
                         backgroundColor: "#ffffff",
                         quality: 0.95,
                         skipFonts: true,
+                        useCORS: true,
                     });
                     const base64Data = dataUrl.replace(
                         /^data:image\/jpeg;base64,/,
@@ -504,6 +524,7 @@ export default function Home() {
                                         <Slide
                                             key={i}
                                             id={`slide-${i}`}
+                                            isExporting={isExporting}
                                             onDelete={() => deleteSlide(i)}
                                             onCycleLayout={() =>
                                                 cycleSlideVariant(i)

@@ -13,7 +13,7 @@ const IntroSlide = ({ slide, colors, palette, headingWeight, userProfileImage, s
                     <DotsPattern colors={colors} palette={palette} opacity={0.05} />
                     <div className="bg-white p-20 rounded-[60px] shadow-2xl w-full h-full flex flex-col justify-between relative overflow-hidden">
                         {slide.image && (
-                            <img src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-10" alt="bg" />
+                            <img crossOrigin="anonymous" src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-10" alt="bg" />
                         )}
                         <div className="absolute top-0 left-0 w-full h-4" style={{ background: colors.primary }}></div>
                         <div>
@@ -45,7 +45,7 @@ const IntroSlide = ({ slide, colors, palette, headingWeight, userProfileImage, s
                 <div className="h-full w-full flex bg-slate-50 relative overflow-hidden">
                     <div className="w-1/2 h-full relative">
                         {slide.image ? (
-                            <img src={slide.image} className="absolute inset-0 w-full h-full object-cover" alt="bg" />
+                            <img crossOrigin="anonymous" src={slide.image} className="absolute inset-0 w-full h-full object-cover" alt="bg" />
                         ) : (
                             <div className="absolute inset-0 flex items-center justify-center p-20" style={{ background: colors.primary }}>
                                 <h2 className="text-9xl font-black text-white leading-none tracking-tighter mix-blend-overlay opacity-50">{slide.stat}</h2>
@@ -137,7 +137,7 @@ const IntroSlide = ({ slide, colors, palette, headingWeight, userProfileImage, s
         } else if (introVariant === 'hero') {
             return (
                 <div className="h-full w-full flex flex-col relative overflow-hidden bg-slate-900">
-                    {slide.image && <img src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="bg" />}
+                    {slide.image && <img crossOrigin="anonymous" src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="bg" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="mt-auto p-24 relative z-10">
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 p-16 rounded-3xl">
@@ -161,7 +161,7 @@ const IntroSlide = ({ slide, colors, palette, headingWeight, userProfileImage, s
                     </div>
                     {slide.image && (
                         <div className="w-2/5 aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
-                            <img src={slide.image} className="w-full h-full object-cover" alt="slide asset" />
+                            <img crossOrigin="anonymous" src={slide.image} className="w-full h-full object-cover" alt="slide asset" />
                         </div>
                     )}
                 </div>

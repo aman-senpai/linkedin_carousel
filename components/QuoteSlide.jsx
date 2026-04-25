@@ -37,7 +37,7 @@ const QuoteSlide = ({ slide, colors, palette, socialHandle, postTitle }) => {
                         <p className="text-5xl font-medium text-slate-700 leading-relaxed mb-16">{stripMarkdown(slide.quote)}</p>
                         <div className="flex items-center gap-6">
                             <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-100">
-                                {slide.image && <img src={slide.image} className="w-full h-full object-cover" alt="avatar" />}
+                                {slide.image && <img crossOrigin="anonymous" src={slide.image} className="w-full h-full object-cover" alt="avatar" />}
                             </div>
                             <span className="text-3xl font-bold text-slate-900">{stripMarkdown(slide.cite)}</span>
                         </div>
@@ -73,7 +73,7 @@ const QuoteSlide = ({ slide, colors, palette, socialHandle, postTitle }) => {
                         <p className="text-5xl font-medium text-slate-700 leading-relaxed italic">“{stripMarkdown(slide.quote)}”</p>
                     </div>
                     <div className="flex items-center gap-8 self-start ml-12">
-                        <img src={slide.image || '/profile.png'} className="w-24 h-24 rounded-full border-4 border-white shadow-xl" alt="avatar" />
+                        <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-24 h-24 rounded-full border-4 border-white shadow-xl" alt="avatar" />
                         <div>
                             <p className="text-4xl font-black text-slate-900 leading-none mb-2">{stripMarkdown(slide.cite)}</p>
                             <p className="text-2xl font-bold text-slate-400 uppercase tracking-widest">Thought Leader</p>
@@ -94,7 +94,7 @@ const QuoteSlide = ({ slide, colors, palette, socialHandle, postTitle }) => {
         } else if (quoteVariant === 'photo') {
             return (
                 <div className="h-full w-full flex flex-col relative bg-slate-900 overflow-hidden">
-                    <img src={slide.image || 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover opacity-60" alt="bg" />
+                    <img crossOrigin="anonymous" src={slide.image || 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200'} className="absolute inset-0 w-full h-full object-cover opacity-60" alt="bg" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="mt-auto p-24 relative z-10 flex flex-col items-center text-center">
                         <div className="w-20 h-2 bg-white mb-10 rounded-full"></div>
@@ -112,7 +112,7 @@ const QuoteSlide = ({ slide, colors, palette, socialHandle, postTitle }) => {
                     </div>
                     <div className="w-1/2 h-full flex flex-col justify-center items-center text-center p-20" style={{ background: colors.primary }}>
                         <div className="w-32 h-32 rounded-full overflow-hidden border-8 border-white shadow-2xl mb-12">
-                            {slide.image && <img src={slide.image} className="w-full h-full object-cover" alt="avatar" />}
+                            {slide.image && <img crossOrigin="anonymous" src={slide.image} className="w-full h-full object-cover" alt="avatar" />}
                         </div>
                         <p className="text-[120px] text-white opacity-20 font-black leading-none absolute top-10 right-10">”</p>
                         <p className="text-5xl font-black text-white mb-4 tracking-tight">{stripMarkdown(slide.cite)}</p>
