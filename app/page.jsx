@@ -436,39 +436,58 @@ export default function Home() {
         setIsExporting(true);
         document.body.classList.add("export-mode");
 
+        // Wait for DOM to update and images to potentially re-load
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         try {
-            const JSZip = (await import("jszip")).default;
-            const { toJpeg } = await import("html-to-image");
-            const { saveAs } = await import("file-saver");
+            const JSZipModule = await import("jszip");
+            const JSZip = JSZipModule.default || JSZipModule;
+            
+            const htmlToImage = await import("html-to-image");
+            const toJpeg = htmlToImage.toJpeg || htmlToImage.default?.toJpeg || htmlToImage.default;
+            
+            const fileSaver = await import("file-saver");
+            const saveAs = fileSaver.saveAs || fileSaver.default || fileSaver;
+            
             const zip = new JSZip();
 
             for (let i = 0; i < slides.length; i++) {
                 const element = document.getElementById(`slide-content-${i}`);
                 if (element) {
-                    const dataUrl = await toJpeg(element, {
-                        width: 1200, // Match native slide width
-                        height: 1500, // Match native slide height
-                        pixelRatio: 1, // sufficient resolution (will be 1200x1500)
-                        backgroundColor: "#ffffff",
-                        quality: 0.95,
-                        skipFonts: true,
-                        useCORS: true,
-                    });
-                    const base64Data = dataUrl.replace(
-                        /^data:image\/jpeg;base64,/,
-                        "",
-                    );
-                    zip.file(`slide-${i + 1}.jpg`, base64Data, {
-                        base64: true,
-                    });
+                    try {
+                        const dataUrl = await toJpeg(element, {
+                            width: 1200,
+                            height: 1500,
+                            pixelRatio: 2, // Consistent high quality
+                            backgroundColor: "#ffffff",
+                            quality: 0.95,
+                            skipFonts: true,
+                            useCORS: true,
+                        });
+
+                        if (!dataUrl || dataUrl.length < 100) {
+                            throw new Error(`Slide ${i + 1} capture returned empty image`);
+                        }
+
+                        const base64Data = dataUrl.replace(
+                            /^data:image\/jpeg;base64,/,
+                            "",
+                        );
+                        zip.file(`slide-${i + 1}.jpg`, base64Data, {
+                            base64: true,
+                        });
+                    } catch (slideError) {
+                        console.error(`Error exporting slide ${i}:`, slideError);
+                        throw new Error(`Failed to capture slide ${i + 1}. This usually happens due to image CORS issues.`);
+                    }
                 }
             }
             const content = await zip.generateAsync({ type: "blob" });
             saveAs(content, "instagram-carousel.zip");
             toast.success("ZIP Downloaded!");
         } catch (e) {
-            console.error(e);
-            toast.error("Failed to export ZIP");
+            console.error("Export Error:", e);
+            toast.error(e.message || "Failed to export ZIP");
         } finally {
             setIsExporting(false);
             document.body.classList.remove("export-mode");
