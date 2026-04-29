@@ -11,12 +11,10 @@ services:
             resources:
                 limits:
                     memory: "3634364416"
-        environment:
-            DEEPSEEK_API_KEY: DEEPSEEK_API_KEY_PLACEHOLDER
-            GOOGLE_GEMINI_API_KEY: GOOGLE_GEMINI_API_KEY_PLACEHOLDER
-            NODE_ENV: production
         env_file:
             - /home/senpai/Dev/linkedin_carousel/.env
+        environment:
+            NODE_ENV: production
         hostname: linkedin-carousel
         image: aman-senpai/linkedin-carousel:latest
         labels:
