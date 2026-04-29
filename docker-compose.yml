@@ -2,21 +2,23 @@ name: linkedin_carousel
 services:
     web:
         build:
-            context: .
+            context: /home/senpai/Dev/linkedin_carousel
             dockerfile: Dockerfile
+        cpu_shares: 90
+        command: []
         container_name: linkedin-carousel
         deploy:
             resources:
                 limits:
                     memory: "3634364416"
         environment:
+            DEEPSEEK_API_KEY: DEEPSEEK_API_KEY_PLACEHOLDER
             GOOGLE_GEMINI_API_KEY: GOOGLE_GEMINI_API_KEY_PLACEHOLDER
             NODE_ENV: production
         env_file:
-            - .env
+            - /home/senpai/Dev/linkedin_carousel/.env
         hostname: linkedin-carousel
         image: aman-senpai/linkedin-carousel:latest
-
         labels:
             icon: https://cdn-icons-png.flaticon.com/512/174/174857.png
         networks:

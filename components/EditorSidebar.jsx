@@ -5,6 +5,7 @@ import { FONT_OPTIONS } from '@/lib/constants';
 import { TEMPLATES } from '@/lib/templates';
 import YoutubeBrowser from './YoutubeBrowser';
 import EditChannelsModal from './modals/EditChannelsModal';
+import ProviderSelector from './ProviderSelector';
 
 const EditorSidebar = ({
     topic,
@@ -33,7 +34,11 @@ const EditorSidebar = ({
     isDragging,
     handleDrop,
     handleDragOver,
-    handleDragLeave
+    handleDragLeave,
+    aiProvider,
+    setAiProvider,
+    aiModel,
+    setAiModel,
 }) => {
     const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -119,6 +124,17 @@ const EditorSidebar = ({
                     value={topic}
                     rows="4"
                     onChange={(e) => setTopic(e.target.value)}
+                />
+            </div>
+
+            {/* AI Provider Card */}
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 block">AI Provider</label>
+                <ProviderSelector
+                    provider={aiProvider}
+                    setProvider={setAiProvider}
+                    model={aiModel}
+                    setModel={setAiModel}
                 />
             </div>
 

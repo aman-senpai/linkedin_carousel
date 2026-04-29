@@ -91,6 +91,20 @@ const BigNumberSlide = ({ slide, colors, palette, socialHandle, postTitle }) => 
                     </div>
                 </div>
             );
+        } else if (bigVariant === 'minimal') {
+            return (
+                <div className="h-full w-full bg-white p-24 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[400px] font-black text-slate-100 pointer-events-none select-none leading-none">·</div>
+                    <div className="relative z-10 max-w-4xl mx-auto">
+                        <h2 className="text-[120px] font-extralight text-slate-800 leading-none mb-6 tracking-tight">{slide.number}</h2>
+                        <div className="w-16 h-0.5 mx-auto mb-10" style={{ background: colors.accent }}></div>
+                        <p className="text-3xl font-light text-slate-500 leading-relaxed max-w-2xl mx-auto">{slide.description}</p>
+                        {slide.source && (
+                            <span className="inline-block mt-14 text-xs text-slate-300 font-mono uppercase tracking-[0.25em]">{slide.source}</span>
+                        )}
+                    </div>
+                </div>
+            );
         } else if (bigVariant === 'simple') {
             return (
                 <div className="h-full w-full bg-white p-24 flex flex-col justify-center items-center text-center relative overflow-hidden">

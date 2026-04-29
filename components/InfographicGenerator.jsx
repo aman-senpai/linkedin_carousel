@@ -14,6 +14,7 @@ import {
 
 import { toast } from "sonner";
 import InfographicCanvas from "./InfographicCanvas";
+import ProviderSelector from "./ProviderSelector";
 import { FONT_OPTIONS } from "@/lib/constants";
 
 const palettes = [
@@ -70,6 +71,10 @@ export default function InfographicGenerator({
     setSocialHandle,
     caption,
     setCaption,
+    aiProvider,
+    setAiProvider,
+    aiModel,
+    setAiModel,
 }) {
     const [isExporting, setIsExporting] = useState(false);
     const [exportProgress, setExportProgress] = useState(0);
@@ -309,6 +314,19 @@ export default function InfographicGenerator({
                             </>
                         )}
                     </button>
+                </div>
+
+                {/* AI Provider */}
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4 block text-center">
+                        AI Provider
+                    </label>
+                    <ProviderSelector
+                        provider={aiProvider}
+                        setProvider={setAiProvider}
+                        model={aiModel}
+                        setModel={setAiModel}
+                    />
                 </div>
 
                 {/* Layout Style */}

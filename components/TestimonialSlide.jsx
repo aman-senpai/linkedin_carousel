@@ -4,7 +4,7 @@ import SlideFooter from './SlideFooter';
 
 const TestimonialSlide = ({ slide, colors, palette, socialHandle, postTitle }) => {
     const testimonialVariant = slide.variant || 'classic';
-    const isDark = ['photo'].includes(testimonialVariant);
+    const isDark = ['photo', 'dark', 'bold', 'grid'].includes(testimonialVariant);
 
     const renderContent = () => {
         if (testimonialVariant === 'cards') {
@@ -52,6 +52,107 @@ const TestimonialSlide = ({ slide, colors, palette, socialHandle, postTitle }) =
                             <p className="text-4xl font-bold text-white mb-2">{stripMarkdown(slide.author)}</p>
                             <p className="text-xl text-slate-400 uppercase font-bold tracking-widest">{stripMarkdown(slide.role)}</p>
                         </div>
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'split') {
+            return (
+                <div className="h-full w-full flex overflow-hidden">
+                    <div className="w-2/5 h-full p-16 flex flex-col items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${colors.primary}, ${colors.primary}dd)` }}>
+                        <div className="text-[220px] font-black text-white/20 leading-none select-none">"</div>
+                        <p className="text-lg font-bold text-white/40 uppercase tracking-[0.3em] mt-2">{stripMarkdown(slide.role)}</p>
+                    </div>
+                    <div className="w-3/5 h-full bg-white p-20 flex flex-col justify-center relative overflow-hidden">
+                        <TemplateDecorations colors={colors} palette={palette} />
+                        <div className="relative z-10">
+                            <p className="text-5xl font-bold text-slate-800 leading-relaxed mb-10">&ldquo;{stripMarkdown(slide.text)}&rdquo;</p>
+                            <div className="flex items-center gap-6 pt-8 border-t border-slate-100">
+                                <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-20 h-20 rounded-full border-4" style={{ borderColor: colors.primary }} alt="avatar" />
+                                <div>
+                                    <p className="text-3xl font-black text-slate-900">{stripMarkdown(slide.author)}</p>
+                                    <p className="text-lg text-slate-500 font-semibold">{stripMarkdown(slide.role)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'grid') {
+            const testimonials = slide.testimonials || [{ text: slide.text, author: slide.author, role: slide.role, image: slide.image }];
+            return (
+                <div className="h-full w-full bg-slate-900 p-16 flex flex-col justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+                    <div className="grid grid-cols-2 gap-5 max-w-5xl mx-auto w-full relative z-10">
+                        {testimonials.slice(0, 4).map((t, i) => (
+                            <div key={i} className="bg-white/10 backdrop-blur-sm p-8 rounded-3xl border border-white/10 flex flex-col justify-center">
+                                <p className="text-2xl text-white/85 leading-relaxed mb-6 italic">&ldquo;{stripMarkdown(t?.text || slide.text)}&rdquo;</p>
+                                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/10">
+                                    <img crossOrigin="anonymous" src={t?.image || '/profile.png'} className="w-12 h-12 rounded-full border-2 border-white/20" alt="avatar" />
+                                    <div>
+                                        <p className="text-lg font-bold text-white">{stripMarkdown(t?.author || slide.author)}</p>
+                                        <p className="text-sm text-white/40 uppercase tracking-wider">{stripMarkdown(t?.role || slide.role)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'bubble') {
+            return (
+                <div className="h-full w-full bg-gradient-to-br from-slate-50 to-slate-100 p-24 flex flex-col items-center justify-center relative overflow-hidden">
+                    <div className="bg-white rounded-[60px] rounded-bl-none p-14 shadow-2xl max-w-4xl w-full relative">
+                        <p className="text-4xl text-slate-700 leading-relaxed italic">&ldquo;{stripMarkdown(slide.text)}&rdquo;</p>
+                    </div>
+                    <div className="w-0 h-0 border-l-[24px] border-l-transparent border-t-[32px] border-t-white border-r-[24px] border-r-transparent ml-16 -mt-px"></div>
+                    <div className="flex items-center gap-5 mt-6">
+                        <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-20 h-20 rounded-full border-4 shadow-xl" style={{ borderColor: colors.primary }} alt="avatar" />
+                        <div>
+                            <p className="text-3xl font-black text-slate-900">{stripMarkdown(slide.author)}</p>
+                            <p className="text-lg text-slate-400 uppercase tracking-widest font-bold">{stripMarkdown(slide.role)}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'dark') {
+            return (
+                <div className="h-full w-full p-24 flex flex-col items-center justify-center text-center relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${colors.gradient?.from || '#0f172a'}, ${colors.gradient?.to || '#020617'})` }}>
+                    <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+                    <TemplateDecorations colors={colors} palette={palette} />
+                    <div className="relative z-10 max-w-4xl w-full flex flex-col items-center">
+                        <div className="w-20 h-1 mb-12 rounded-full" style={{ background: colors.primary }}></div>
+                        <p className="text-5xl font-light text-white/90 leading-tight mb-14 italic">&ldquo;{stripMarkdown(slide.text)}&rdquo;</p>
+                        <div className="w-32 h-px mb-10 bg-white/10"></div>
+                        <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-20 h-20 rounded-full border-2 border-white/20 shadow-2xl mb-5" alt="avatar" />
+                        <p className="text-3xl font-bold text-white tracking-tight">{stripMarkdown(slide.author)}</p>
+                        <p className="text-lg text-white/40 uppercase tracking-[0.25em] mt-1">{stripMarkdown(slide.role)}</p>
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'bold') {
+            return (
+                <div className="h-full w-full bg-[#0a0a0a] p-20 flex flex-col items-start justify-center relative overflow-hidden">
+                    <div className="absolute -top-8 -left-6 text-[300px] font-black text-white/5 leading-none pointer-events-none select-none">&ldquo;</div>
+                    <p className="text-7xl font-black text-white leading-[1.1] max-w-5xl relative z-10 tracking-tight">{stripMarkdown(slide.text)}</p>
+                    <div className="w-24 h-1.5 mt-12 mb-10" style={{ background: colors.primary }}></div>
+                    <div className="relative z-10">
+                        <p className="text-4xl font-bold text-white uppercase tracking-widest">{stripMarkdown(slide.author)}</p>
+                        <p className="text-2xl text-white/40 font-medium mt-1">{stripMarkdown(slide.role)}</p>
+                    </div>
+                </div>
+            );
+        } else if (testimonialVariant === 'logo') {
+            return (
+                <div className="h-full w-full bg-white p-24 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                    <TemplateDecorations colors={colors} palette={palette} />
+                    <div className="relative z-10 flex flex-col items-center max-w-4xl w-full">
+                        <div className="w-36 h-36 rounded-[32px] bg-slate-50 flex items-center justify-center mb-10 shadow-lg border border-slate-100 p-5">
+                            <img crossOrigin="anonymous" src={slide.image || '/profile.png'} className="w-full h-full object-contain" alt="logo" />
+                        </div>
+                        <p className="text-4xl font-semibold text-slate-700 leading-relaxed mb-10 italic">&ldquo;{stripMarkdown(slide.text)}&rdquo;</p>
+                        <div className="w-16 h-1 mb-8" style={{ background: colors.primary }}></div>
+                        <p className="text-3xl font-black text-slate-900">{stripMarkdown(slide.author)}</p>
+                        <p className="text-xl text-slate-400 uppercase font-bold tracking-[0.2em]">{stripMarkdown(slide.role)}</p>
                     </div>
                 </div>
             );

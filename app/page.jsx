@@ -103,6 +103,8 @@ export default function Home() {
     );
     const [isDragging, setIsDragging] = useState(false);
     const [activeTab, setActiveTab] = useState("carousel");
+    const [aiProvider, setAiProvider] = useState("gemini");
+    const [aiModel, setAiModel] = useState("gemini-3-flash-preview");
 
     const scrollContainerRef = useRef(null);
     const [infographicData, setInfographicData] = useState(null);
@@ -119,6 +121,8 @@ export default function Home() {
                 if (parsed.postTitle) setPostTitle(parsed.postTitle);
                 if (parsed.postCaption) setPostCaption(parsed.postCaption);
                 if (parsed.socialHandle) setSocialHandle(parsed.socialHandle);
+                if (parsed.aiProvider) setAiProvider(parsed.aiProvider);
+                if (parsed.aiModel) setAiModel(parsed.aiModel);
                 if (parsed.activeFont) setActiveFont(parsed.activeFont);
                 if (parsed.userImages) setUserImages(parsed.userImages);
                 if (parsed.userProfileImage)
@@ -138,6 +142,8 @@ export default function Home() {
             postTitle,
             postCaption,
             socialHandle,
+            aiProvider,
+            aiModel,
             activeFont,
             userImages,
             userProfileImage,
@@ -150,6 +156,8 @@ export default function Home() {
         postTitle,
         postCaption,
         socialHandle,
+        aiProvider,
+        aiModel,
         activeFont,
         userImages,
         userProfileImage,
@@ -202,7 +210,7 @@ export default function Home() {
                 const response = await fetch("/api/generate", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ topic }),
+                    body: JSON.stringify({ topic, provider: aiProvider, model: aiModel }),
                 });
 
                 if (!response.ok) {
@@ -220,7 +228,7 @@ export default function Home() {
                 const response = await fetch("/api/generate-infographic", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ topic }),
+                    body: JSON.stringify({ topic, provider: aiProvider, model: aiModel }),
                 });
 
                 if (!response.ok) {
@@ -637,6 +645,10 @@ export default function Home() {
                                     setIsDragging(true);
                                 }}
                                 handleDragLeave={() => setIsDragging(false)}
+                                aiProvider={aiProvider}
+                                setAiProvider={setAiProvider}
+                                aiModel={aiModel}
+                                setAiModel={setAiModel}
                             />
                         </div>
                     ) : (
@@ -658,6 +670,10 @@ export default function Home() {
                             setSocialHandle={setSocialHandle}
                             caption={postCaption}
                             setCaption={setPostCaption}
+                            aiProvider={aiProvider}
+                            setAiProvider={setAiProvider}
+                            aiModel={aiModel}
+                            setAiModel={setAiModel}
                         />
                     )}
                 </div>
